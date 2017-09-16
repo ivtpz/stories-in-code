@@ -1,9 +1,19 @@
-import React from 'react';
+// @flow
+import React, { type ComponentType } from 'react';
 
-export default function asyncComponent(getComponent) {
-  return class AsyncComponent extends React.Component {
+type ComponentFunc = () => Promise<ComponentType<*>>
+
+type Props = {}
+type State = {
+  Component: ComponentType<*>
+}
+
+export default function asyncComponent(getComponent: ComponentFunc) {
+  return class AsyncComponent extends React.Component<Props, State> {
     static Component = null;
-    state = { Component: AsyncComponent.Component };
+    state = {
+      Component: AsyncComponent.Component
+    };
 
     componentWillMount() {
       if (!this.state.Component) {

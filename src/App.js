@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
@@ -6,10 +7,11 @@ import {
 
 import asyncComponent from './AsyncComponent';
 
+// Using asyncComp / import to facilitate code splitting
 const Home = asyncComponent(() =>
   import('./containers/HomePage.js').then(module => module.default));
-
-class App extends Component {
+type P = {}
+class App extends Component<P> {
   render() {
     return (
       <Router>
