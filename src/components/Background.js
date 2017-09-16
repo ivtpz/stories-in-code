@@ -15,7 +15,8 @@ const styles = {
     position: 'relative',
     margin: 'auto',
     width: 950,
-    height: 0
+    height: 700,
+    zIndex: -1
   },
   logo: {
     position: 'absolute',
