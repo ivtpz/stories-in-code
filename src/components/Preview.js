@@ -6,7 +6,8 @@ import { colors } from '../colors';
 
 const styles = {
   container: {
-    width: '50%'
+    width: '50%',
+    position: 'relative'
   },
   svgBox: {
     width: '100%',
@@ -16,14 +17,27 @@ const styles = {
     strokeDasharray: '640 3040',
     strokeDashoffset: '-1900',
     strokeWidth: '8px',
-    fill: 'none',
+    fill: 'white',
+    fillOpacity: 0,
     stroke: colors.turquoiseChalk,
-    transition: 'stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s'
+    transition:
+      'stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s, fill 1s, fill-opacity 1s'
   },
   hoveredBorder: {
     strokeWidth: 3,
     strokeDashoffset: 0,
-    strokeDasharray: 3410
+    strokeDasharray: 3410,
+    fill: 'black',
+    fillOpacity: '0.5'
+  },
+  overlay: {
+    position: 'absolute',
+    display: 'flex',
+    color: 'white',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%'
   }
 };
 
@@ -37,6 +51,17 @@ type State = {
   hovered: boolean
   // shouldUpdate: boolean
 };
+
+const Overlay = () => (
+  <div style={styles.overlay}>
+    <div>
+      <p>How it's made</p>
+    </div>
+    <div>
+      <p>Show me</p>
+    </div>
+  </div>
+);
 
 class Preview extends Component<Props, State> {
   state = {
@@ -111,7 +136,9 @@ class Preview extends Component<Props, State> {
         onMouseEnter={() => this.setState({ hovered: true })}
         onMouseLeave={() => this.setState({ hovered: false })}
       >
+        <Overlay />
         <svg viewBox="-20 -20 1040 670" style={styles.svgBox}>
+          <image xlinkHref={testImage} />
           <rect
             style={this.state.hovered ? [styles.border, styles.hoveredBorder] : styles.border}
             x="-18"
@@ -121,7 +148,6 @@ class Preview extends Component<Props, State> {
             width="1030px"
             height="666px"
           />
-          <image xlinkHref={testImage} />
         </svg>
       </div>
     );
