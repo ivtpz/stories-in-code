@@ -1,0 +1,10 @@
+[include]
+../otherdir/src
+
+[ignore]
+.*/build/.*
+.*/public/.*
+.*/node_modules/.*
+
+[libs]
+./lib
