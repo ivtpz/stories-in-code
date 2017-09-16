@@ -38,6 +38,24 @@ const styles = {
     alignItems: 'center',
     width: '100%',
     height: '100%'
+  },
+  text: {
+    fontFamily: 'Roboto Condensed',
+    fontSize: 32,
+    lineHeight: 32,
+    letterSpacing: 8,
+    color: '#fff'
+  },
+  line: {
+    stroke: 'white',
+    strokeWidth: 5,
+    strokeDasharray: '580 580',
+    strokeDashoffset: 0,
+    transition: 'all 1s'
+  },
+  hiddenLine: {
+    strokeDasharray: '0 580',
+    strokeDashoffset: -290
   }
 };
 
@@ -54,12 +72,8 @@ type State = {
 
 const Overlay = () => (
   <div style={styles.overlay}>
-    <div>
-      <p>How it's made</p>
-    </div>
-    <div>
-      <p>Show me</p>
-    </div>
+    <div style={styles.text}>SHOW ME</div>
+    <div style={styles.text}>HOW IT'S MADE</div>
   </div>
 );
 
@@ -147,6 +161,13 @@ class Preview extends Component<Props, State> {
             ry="4"
             width="1030px"
             height="666px"
+          />
+          <line
+            x1="500"
+            x2="500"
+            y1="30"
+            y2="610"
+            style={this.state.hovered ? styles.line : [styles.line, styles.hiddenLine]}
           />
         </svg>
       </div>
