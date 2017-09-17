@@ -1,4 +1,4 @@
-/* global Linear */
+/* global Linear, window */
 import React, { Component } from 'react';
 import Radium from 'radium';
 import TweenMax from 'gsap';
@@ -68,6 +68,7 @@ const styles = {
     stroke: colors.turquoiseChalk
   },
   playPause: {
+    position: 'absolute',
     height: 30,
     width: 30,
     margin: 10
@@ -87,48 +88,54 @@ class Background extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      paused: true
+      paused: false
     };
   }
 
   componentDidMount() {
-    const base = 24 / 19;
+    window.addEventListener('scroll', (e) => {
+      const { scrollTop } = e.srcElement.scrollingElement;
+      if (scrollTop === 0) {
+        this.changeAnimation(false);
+      } else if (!this.state.paused) {
+        console.log('SHOULD PAUSE');
+        this.changeAnimation(true);
+      }
+    });
 
+    const base = 24 / 19;
     this.gearRotationAnimations = Object.keys(Gears).map(gear =>
       TweenMax.to(this[gear], base * Gears[gear].spokes, rotation(Gears[gear].direction))
     );
-    this.gearRotationAnimations.forEach(a => a.paused(true));
   }
 
-  toggleAnimation = () => {
-    const paused = this.gearRotationAnimations[0].paused();
-    this.gearRotationAnimations.forEach(a => a.paused(!paused));
-    this.setState({ paused: !paused });
-  }
+  changeAnimation = (paused) => {
+    this.gearRotationAnimations.forEach(a => a.paused(paused));
+    this.setState({ paused });
+  };
 
   render() {
     return (
       <div>
-        <div
-          style={styles.playPause}
-          onClick={this.toggleAnimation}
-        >{this.state.paused
-            ? <img src={play} style={styles.playPauseIcon}/>
-            : <img src={pause} style={styles.playPauseIcon}/>}</div>
+        <div style={styles.playPause} onClick={() => this.changeAnimation(!this.state.paused)}>
+          {this.state.paused ? (
+            <img src={play} style={styles.playPauseIcon} />
+          ) : (
+            <img src={pause} style={styles.playPauseIcon} />
+          )}
+        </div>
         <div style={styles.container}>
           <Defs />
-          <Logo
-            additionalStyles={styles.logo}
-          />
-          {
-            Object.keys(Gears).map(gear =>
-              React.createElement(Gears[gear], {
-                additionalStyles: styles[gear],
-                refFunc: (el) => { this[gear] = el; },
-                key: Gears[gear].displayName
-              })
-            )
-          }
+          <Logo additionalStyles={styles.logo} />
+          {Object.keys(Gears).map(gear =>
+            React.createElement(Gears[gear], {
+              additionalStyles: styles[gear],
+              refFunc: (el) => {
+                this[gear] = el;
+              },
+              key: Gears[gear].displayName
+            })
+          )}
         </div>
       </div>
     );
