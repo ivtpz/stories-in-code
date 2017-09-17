@@ -6,17 +6,29 @@ import Preview from '../components/Preview';
 const styles = {
   container: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  preview: {
+    flexBasis: 300
   }
 };
 
 class HomePage extends Component {
   render() {
     return (
-      <div style={styles.container}>
+      <div>
         <Background />
+        <div style={styles.container}>
           <Preview />
+          <Preview />
+          <Preview />
+          <Preview />
+          <Preview />
+          <Preview />
+        </div>
       </div>
     );
   }
