@@ -6,8 +6,9 @@ import { colors } from '../colors';
 
 const styles = {
   container: {
-    width: '50%',
-    position: 'relative'
+    flexBasis: 500,
+    position: 'relative',
+    margin: 20
   },
   svgBox: {
     width: '100%',
@@ -39,12 +40,25 @@ const styles = {
     width: '100%',
     height: '100%'
   },
+  textContainer: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    color: '#fff',
+    padding: 10,
+    height: '100%',
+    ':hover': {
+      color: colors.turquoiseChalk,
+      cursor: 'pointer'
+    }
+  },
   text: {
     fontFamily: 'Roboto Condensed',
     fontSize: 32,
-    lineHeight: 32,
     letterSpacing: 8,
-    color: '#fff'
+    textAlign: 'center',
+    transition: 'color .5s'
   },
   line: {
     stroke: 'white',
@@ -67,13 +81,6 @@ type State = {
   hovered: boolean
 };
 
-const Overlay = () => (
-  <div style={styles.overlay}>
-    <div style={styles.text}>SHOW ME</div>
-    <div style={styles.text}>HOW IT'S MADE</div>
-  </div>
-);
-
 class Preview extends Component<Props, State> {
   state = {
     hovered: false
@@ -86,7 +93,20 @@ class Preview extends Component<Props, State> {
         onMouseEnter={() => this.setState({ hovered: true })}
         onMouseLeave={() => this.setState({ hovered: false })}
       >
-        <Overlay />
+        {this.state.hovered && (
+          <div style={styles.overlay}>
+            <div key="show_me_cont" style={styles.textContainer}>
+              <div key="show_me" style={styles.text}>
+                SHOW ME
+              </div>
+            </div>
+            <div key="how_its_made_cont" style={styles.textContainer}>
+              <div key="how_its_made" style={styles.text}>
+                HOW IT'S MADE
+              </div>
+            </div>
+          </div>
+        )}
         <svg viewBox="-20 -20 1040 670" style={styles.svgBox}>
           <image xlinkHref={testImage} />
           <rect
