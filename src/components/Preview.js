@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import testImage from '../images/twitterMap.png';
+import Graph from '../icons/graph';
+import Tools from '../icons/tools';
 import { colors } from '../colors';
 
 const styles = {
@@ -60,8 +62,19 @@ const styles = {
     textAlign: 'center',
     transition: 'color .5s'
   },
+  icon: {
+    width: 120,
+    height: 120,
+    stroke: colors.whiteChalk,
+    fill: colors.whiteChalk,
+    transition: 'all .75s ease'
+  },
+  iconHidden: {
+    width: 0,
+    height: 0
+  },
   line: {
-    stroke: 'white',
+    stroke: colors.whiteChalk,
     strokeWidth: 5,
     strokeDasharray: '580 580',
     strokeDashoffset: 0,
@@ -78,12 +91,16 @@ type Props = {
 };
 
 type State = {
-  hovered: boolean
+  hovered: boolean,
+  showMeHovered: boolean,
+  howItsMadeHovered: boolean
 };
 
 class Preview extends Component<Props, State> {
   state = {
-    hovered: false
+    hovered: false,
+    showMeHovered: false,
+    howItsMadeHovered: false
   };
 
   render() {
@@ -95,14 +112,36 @@ class Preview extends Component<Props, State> {
       >
         {this.state.hovered && (
           <div style={styles.overlay}>
-            <div key="show_me_cont" style={styles.textContainer}>
+            <div
+              key="show_me_cont"
+              style={styles.textContainer}
+              onMouseEnter={() => this.setState({ showMeHovered: true })}
+              onMouseLeave={() => this.setState({ showMeHovered: false })}
+            >
               <div key="show_me" style={styles.text}>
-                SHOW ME
+                <span>SHOW ME</span>
+                <br />
+                <Graph
+                  additionalStyles={
+                    this.state.showMeHovered ? styles.icon : [styles.icon, styles.iconHidden]
+                  }
+                />
               </div>
             </div>
-            <div key="how_its_made_cont" style={styles.textContainer}>
+            <div
+              key="how_its_made_cont"
+              style={styles.textContainer}
+              onMouseEnter={() => this.setState({ howItsMadeHovered: true })}
+              onMouseLeave={() => this.setState({ howItsMadeHovered: false })}
+            >
               <div key="how_its_made" style={styles.text}>
-                HOW IT'S MADE
+                <span>HOW IT'S MADE</span>
+                <br />
+                <Tools
+                  additionalStyles={
+                    this.state.howItsMadeHovered ? styles.icon : [styles.icon, styles.iconHidden]
+                  }
+                />
               </div>
             </div>
           </div>
