@@ -9,6 +9,9 @@
 # production
 /build
 
+# keys
+twitter-mood-server/config
+
 # misc
 .DS_Store
 .env.local
