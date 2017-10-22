@@ -7,6 +7,7 @@ import Logo from './logo/Logo';
 import Defs from './logo/Defs';
 import * as Gears from './gears';
 import { colors } from '../colors';
+import ScrollArrow from '../icons/scrollArrow';
 import play from '../icons/play.svg';
 import pause from '../icons/pause.svg';
 
@@ -15,7 +16,7 @@ const styles = {
     position: 'relative',
     margin: 'auto',
     width: 950,
-    height: 700,
+    height: 600,
     zIndex: -1
   },
   logo: {
@@ -75,6 +76,23 @@ const styles = {
   },
   playPauseIcon: {
     width: '100%'
+  },
+  scrollArrowHidden: {
+    strokeDasharray: '0, 150'
+  },
+  arrowContainer: {
+    position: 'absolute',
+    height: '100%',
+    maxHeight: 600,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    marginLeft: 40
+  },
+  scrollArrow: {
+    stroke: colors.whiteChalk,
+    strokeDasharray: 150,
+    transition: 'all 2s ease-in'
   }
 };
 
@@ -88,19 +106,26 @@ class Background extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      paused: false
+      paused: false,
+      blockAnimation: false,
+      showScrollArrow: false
     };
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', (e) => {
-      const { scrollTop } = e.srcElement.scrollingElement;
-      if (scrollTop === 0) {
-        this.changeAnimation(false);
-      } else if (!this.state.paused) {
-        console.log('SHOULD PAUSE');
+    setTimeout(() => this.setState({ showScrollArrow: true }), 100);
+    window.addEventListener('scroll', () => {
+      // const { scrollTop } = e.srcElement.scrollingElement;
+      // if (scrollTop === 0 && !this.state.blockAnimation) {
+      //   this.changeAnimation(false);
+      // } else {
+      if (!this.state.paused) {
         this.changeAnimation(true);
       }
+      if (this.state.showScrollArrow) {
+        this.setState({ showScrollArrow: false });
+      }
+      // }
     });
 
     const base = 24 / 19;
@@ -117,12 +142,29 @@ class Background extends Component {
   render() {
     return (
       <div>
-        <div style={styles.playPause} onClick={() => this.changeAnimation(!this.state.paused)}>
+        <div
+          style={styles.playPause}
+          onClick={() => {
+            this.changeAnimation(!this.state.paused);
+            this.setState({ blockAnimation: !this.state.paused });
+          }}
+        >
           {this.state.paused ? (
             <img src={play} style={styles.playPauseIcon} />
           ) : (
             <img src={pause} style={styles.playPauseIcon} />
           )}
+        </div>
+        <div style={styles.arrowContainer}>
+          <ScrollArrow
+            additionalStyles={
+              this.state.showScrollArrow ? (
+                styles.scrollArrow
+              ) : (
+                [styles.scrollArrow, styles.scrollArrowHidden]
+              )
+            }
+          />
         </div>
         <div style={styles.container}>
           <Defs />

@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Radium from 'radium';
 import testImage from '../images/twitterMap.png';
 import Graph from '../icons/graph';
@@ -47,11 +48,11 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
+    textDecoration: 'none',
     color: '#fff',
     padding: 10,
     height: '100%',
     ':hover': {
-      color: colors.turquoiseChalk,
       cursor: 'pointer'
     }
   },
@@ -61,6 +62,9 @@ const styles = {
     letterSpacing: 8,
     textAlign: 'center',
     transition: 'color .5s'
+  },
+  textHovered: {
+    color: colors.turquoiseChalk
   },
   icon: {
     width: 120,
@@ -87,7 +91,8 @@ const styles = {
 };
 
 type Props = {
-  previewImage: string
+  previewImage: string,
+  href: string
 };
 
 type State = {
@@ -112,13 +117,14 @@ class Preview extends Component<Props, State> {
       >
         {this.state.hovered && (
           <div style={styles.overlay}>
-            <div
+            <Link
+              to={this.props.href}
               key="show_me_cont"
               style={styles.textContainer}
               onMouseEnter={() => this.setState({ showMeHovered: true })}
               onMouseLeave={() => this.setState({ showMeHovered: false })}
             >
-              <div key="show_me" style={styles.text}>
+              <div key="show_me" style={this.state.showMeHovered ? [styles.text, styles.textHovered] : styles.text}>
                 <span>SHOW ME</span>
                 <br />
                 <Graph
@@ -127,14 +133,14 @@ class Preview extends Component<Props, State> {
                   }
                 />
               </div>
-            </div>
+            </Link>
             <div
               key="how_its_made_cont"
               style={styles.textContainer}
               onMouseEnter={() => this.setState({ howItsMadeHovered: true })}
               onMouseLeave={() => this.setState({ howItsMadeHovered: false })}
             >
-              <div key="how_its_made" style={styles.text}>
+              <div key="how_its_made" style={this.state.howItsMadeHovered ? [styles.text, styles.textHovered] : styles.text}>
                 <span>HOW IT'S MADE</span>
                 <br />
                 <Tools

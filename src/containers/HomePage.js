@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import Radium from 'radium';
 import Background from '../components/Background';
@@ -17,12 +18,18 @@ const styles = {
 };
 
 class HomePage extends Component {
+  componentDidMount() {
+    document.body.style.backgroundColor = '#313131';
+  }
+  componentWillUnmount() {
+    document.body.style.backgroundColor = 'white';
+  }
   render() {
     return (
       <div>
         <Background />
         <div style={styles.container}>
-          <Preview />
+          <Preview href="twitter-mood-map"/>
           <Preview />
           <Preview />
           <Preview />

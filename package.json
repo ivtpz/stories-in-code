@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3": "^4.11.0",
+    "express": "^4.15.4",
     "gsap": "^1.20.2",
+    "lodash": "^4.17.4",
+    "node-fetch": "^1.7.3",
     "radium": "^0.19.4",
     "react": "^15.6.1",
+    "react-d3-wrap": "^2.2.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.13"
+    "react-scripts": "1.0.13",
+    "topojson": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,6 +29,7 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
-    "flow-bin": "^0.54.1"
+    "flow-bin": "^0.54.1",
+    "morgan": "^1.8.2"
   }
 }
