@@ -1,0 +1,8 @@
+svg#d3root-authors {
+  border: 2px solid grey;
+}
+
+.link {
+  stroke: gray;
+  stroke-opacity: 0.6;
+}

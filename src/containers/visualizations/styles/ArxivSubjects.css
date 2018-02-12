@@ -1,0 +1,40 @@
+text {
+  text-anchor: middle;
+}
+
+svg#d3root {
+  margin: auto;
+  display: block;
+}
+
+.node circle {
+  stroke: rgb(163, 245, 207);
+  stroke-width: 1px;
+}
+
+.node.middle circle {
+  stroke: rgb(77, 194, 202);
+}
+
+.node.sub-middle circle {
+  stroke: rgb(49, 150, 190);
+}
+
+.node.middle circle:hover {
+  stroke: gray;
+}
+
+.node.sub-middle circle:hover {
+  stroke: darkslategray;
+}
+
+.node.leaf circle {
+  stroke: rgba(255, 255, 255, 0.9);
+}
+
+
+text {
+  font-style: sans-serif;
+  text-anchor: middle;
+  fill: darkslategray;
+}

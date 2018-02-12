@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import Background from '../components/Background';
 import Preview from '../components/Preview';
+import TwitterPreviewImage from '../images/twitterMap.png';
+import ArxivSubjects from '../images/arxivSubjects.png';
+import ArxivAuthorConnections from '../images/arxivAuthorConnections.png';
+
 
 const styles = {
   container: {
@@ -29,12 +33,9 @@ class HomePage extends Component {
       <div>
         <Background />
         <div style={styles.container}>
-          <Preview href="twitter-mood-map"/>
-          <Preview />
-          <Preview />
-          <Preview />
-          <Preview />
-          <Preview />
+          <Preview href="twitter-mood-map" previewImage={TwitterPreviewImage} />
+          <Preview href="arxiv-by-subject" previewImage={ArxivSubjects} />
+          <Preview href="arxiv-author-connections" previewImage={ArxivAuthorConnections}/>
         </div>
       </div>
     );

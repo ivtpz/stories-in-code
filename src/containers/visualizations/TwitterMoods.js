@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Radium from 'radium';
 import d3Wrap from 'react-d3-wrap';
 import * as d3 from 'd3';
 import * as topojson from 'topojson';
 import { flattenDeep } from 'lodash';
+import { homeIcon } from '../../theme/sharedStyles';
 
 const styles = {
   title: {
@@ -20,6 +22,10 @@ const styles = {
   updated: {
     textAlign: 'center',
     color: 'gray'
+  },
+  description: {
+    textAlign: 'center',
+    margin: 0
   }
 };
 
@@ -29,6 +35,8 @@ class TwitterMoods extends Component {
       <div>
         <div style={styles.title}>National Mood Map</div>
         <p id="updated" style={styles.updated}></p>
+        <p style={styles.description}>A mood ring for the USA</p>
+        <p style={styles.description}>Based off of sentiment analysis of trending Tweets</p>
         <div id="mapkey"></div>
         <Map
           width={960}
@@ -176,7 +184,7 @@ const Map = d3Wrap({
     colorData = colorData.reduce((a, d) => a.concat(d), []);
 
     d3.select('#mapkey')
-      .attr('style', `width: ${pieceWidth}px; position: absolute; left: 80px; top: 130px;`)
+      .attr('style', `width: ${pieceWidth}px; position: absolute; left: 80px; top: 170px;`)
       .selectAll('div')
       .data(colorData)
       .enter()
@@ -194,7 +202,7 @@ const Map = d3Wrap({
     colorList.forEach((mood, i) => {
       d3.select(`#title-anchor${i}`)
         .append('div')
-        .attr('style', `position: absolute; width :${pieceWidth}px; text-align: center; color: white; font-size: 1.2em;`)
+        .attr('style', `position: absolute; width :${pieceWidth}px; text-align: center; color: white; font-size: 1.2em; font-weight: 600;`)
         .text(mood);
     });
   },

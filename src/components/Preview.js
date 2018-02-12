@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Radium from 'radium';
-import testImage from '../images/twitterMap.png';
 import Graph from '../icons/graph';
 import Tools from '../icons/tools';
 import { colors } from '../colors';
@@ -77,6 +76,10 @@ const styles = {
     width: 0,
     height: 0
   },
+  image: {
+    width: '96%',
+    height: '96%'
+  },
   line: {
     stroke: colors.whiteChalk,
     strokeWidth: 5,
@@ -91,7 +94,7 @@ const styles = {
 };
 
 type Props = {
-  previewImage: string,
+  previewImage: any,
   href: string
 };
 
@@ -153,7 +156,7 @@ class Preview extends Component<Props, State> {
           </div>
         )}
         <svg viewBox="-20 -20 1040 670" style={styles.svgBox}>
-          <image xlinkHref={testImage} />
+          <image xlinkHref={this.props.previewImage} style={styles.image} />
           <rect
             style={this.state.hovered ? [styles.border, styles.hoveredBorder] : styles.border}
             x="-18"

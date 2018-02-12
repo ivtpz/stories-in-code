@@ -16,7 +16,7 @@ const styles = {
     position: 'relative',
     margin: 'auto',
     width: 950,
-    height: 600,
+    height: 500,
     zIndex: -1
   },
   logo: {
@@ -83,7 +83,7 @@ const styles = {
   arrowContainer: {
     position: 'absolute',
     height: '100%',
-    maxHeight: 600,
+    maxHeight: 500,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
