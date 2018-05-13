@@ -77,8 +77,10 @@ const styles = {
     height: 0
   },
   image: {
-    width: '96%',
-    height: '96%'
+    width: '98%',
+    height: '98%',
+    position: 'absolute',
+    zIndex: '-1'
   },
   line: {
     stroke: colors.whiteChalk,
@@ -155,8 +157,8 @@ class Preview extends Component<Props, State> {
             </div>
           </div>
         )}
+        <img src={this.props.previewImage} style={styles.image} />
         <svg viewBox="-20 -20 1040 670" style={styles.svgBox}>
-          <image xlinkHref={this.props.previewImage} style={styles.image} />
           <rect
             style={this.state.hovered ? [styles.border, styles.hoveredBorder] : styles.border}
             x="-18"

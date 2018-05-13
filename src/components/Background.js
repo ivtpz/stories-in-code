@@ -135,8 +135,10 @@ class Background extends Component {
   }
 
   changeAnimation = (paused) => {
-    this.gearRotationAnimations.forEach(a => a.paused(paused));
-    this.setState({ paused });
+    if (this.gearRotationAnimations) {
+      this.gearRotationAnimations.forEach(a => a.paused(paused));
+      this.setState({ paused });
+    }
   };
 
   render() {
